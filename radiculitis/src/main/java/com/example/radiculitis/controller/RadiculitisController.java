@@ -7,16 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="hospitals/{hospitalName}/Radiculitis")
+@RequestMapping(value="hospitals/{hospitalName}/radiculitis")
 public class RadiculitisController {
     @Autowired
     private RadiculitisService RadiculitisService;
-    @GetMapping(value="/{spineSegment}/{patientsNumber}")
+    @GetMapping(value="/{patientsNumber}")
     public ResponseEntity<Radiculitis> getRadiculitis(
             @PathVariable("hospitalName") String hospitalName,
-            @PathVariable("spineSegment") String spineSegment,
             @PathVariable("patientsNumber") int patientsNumber) {
-        Radiculitis Radiculitis = RadiculitisService.getRadiculitis(hospitalName, spineSegment, patientsNumber);
+        Radiculitis Radiculitis = RadiculitisService.getRadiculitis(hospitalName, patientsNumber);
         return ResponseEntity.ok(Radiculitis);
     }
     @PostMapping
@@ -24,5 +23,23 @@ public class RadiculitisController {
             @PathVariable("hospitalName") String hospitalName,
             @RequestBody Radiculitis request) {
         return ResponseEntity.ok(RadiculitisService.createRadiculitis(request, hospitalName));
+    }
+
+    @PutMapping(value="/{patientsNumber}")
+    public ResponseEntity<Radiculitis> updateRadiculitis(
+            @PathVariable("hospitalName") String hospitalName,
+            @PathVariable("patientsNumber") int patientsNumber,
+            @RequestBody Radiculitis request) {
+        Radiculitis Radiculitis = RadiculitisService.updateRadiculitis(request, hospitalName, patientsNumber);
+        return ResponseEntity.ok(Radiculitis);
+    }
+
+    @DeleteMapping(value="/{patientsNumber}")
+    public ResponseEntity<String> deleteRadiculitis(
+            @PathVariable("hospitalName") String hospitalName,
+            @PathVariable("patientsNumber") int patientsNumber,
+            @RequestBody Radiculitis request) {
+        String response = RadiculitisService.deleteRadiculitis(request, hospitalName, patientsNumber);
+        return ResponseEntity.ok(response);
     }
 }
