@@ -10,18 +10,20 @@ public class RadiculitisService {
         Radiculitis radiculitis = new Radiculitis();
         radiculitis.setId(new Random().nextInt(1000));
         radiculitis.setHospitalName(hospitalName);
-        radiculitis.setSpineSegment("spineSegment");
 
-        if (new Random().nextInt(1) % 2 == 0)
+        String[] segments = {"cervical", "thoracic", "lumbar", "cervical-thoracic", "thoracolumbar", "lumbosacral"};
+        radiculitis.setSpineSegment(segments[new Random().nextInt(segments.length)]);
+
+        if (new Random().nextBoolean())
             radiculitis.setPainType("Dull");
         else
             radiculitis.setPainType("Sharp");
 
         radiculitis.setPainLevel(new Random().nextInt(1,10));
         radiculitis.setSensitivityLossLevel(new Random().nextInt(1,10));
-        radiculitis.setPainLevel(new Random().nextInt(1,10));
+        radiculitis.setMuscleWeaknessLevel(new Random().nextInt(1,10));
 
-        if (new Random().nextInt(20) % 19 == 0)
+        if (new Random().nextInt(100) < 5)
             radiculitis.setInfection(true);
         else
             radiculitis.setInfection(false);
